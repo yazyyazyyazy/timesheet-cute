@@ -1,0 +1,654 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Cute Stats</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+  --bg:#f7f4ef;
+
+  --time:#f6eee6;
+  --travel:#fff1cb;
+  --life:#ffe7ea;
+  --snap:#e9f0ff;
+
+  --text:#252525;
+  --muted:#6d6d6d;
+
+  --shadow:0 12px 30px rgba(0,0,0,.08);
+
+  --blob-going:#ffd4a8;
+  --blob-return:#d8c8ff;
+}
+
+@media (prefers-color-scheme: dark){
+
+:root{
+  --bg:#141414;
+
+  --time:#32281f;
+  --travel:#352f1c;
+  --life:#3a252b;
+  --snap:#243047;
+
+  --text:#f7f7f7;
+  --muted:#bdbdbd;
+
+  --shadow:0 12px 30px rgba(0,0,0,.35);
+
+  --blob-going:#ffbc82;
+  --blob-return:#bca9ff;
+}
+
+}
+
+*{
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  margin:0;
+  padding:28px;
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Inter',sans-serif;
+
+  display:flex;
+  flex-direction:column;
+  gap:24px;
+}
+
+#loading,
+#error{
+  text-align:center;
+  font-size:18px;
+  opacity:.8;
+  margin-top:60px;
+}
+
+#app{
+  display:none;
+  flex-direction:column;
+  gap:24px;
+}
+
+.header{
+  text-align:center;
+  margin-bottom:8px;
+}
+
+.header h1{
+  margin:0;
+  font-size:42px;
+  font-weight:900;
+  letter-spacing:-1px;
+}
+
+.card{
+  border-radius:36px;
+  padding:28px;
+  box-shadow:var(--shadow);
+}
+
+.time-card{
+  background:var(--time);
+}
+
+.travel-card{
+  background:var(--travel);
+}
+
+.life-card{
+  background:var(--life);
+}
+
+.snap-card{
+  background:var(--snap);
+}
+
+.card-title{
+  font-size:15px;
+  font-weight:700;
+  opacity:.75;
+  margin-bottom:18px;
+}
+
+.hero{
+  font-size:clamp(56px,10vw,90px);
+  font-weight:900;
+  line-height:.9;
+  letter-spacing:-3px;
+}
+
+.hero-label{
+  margin-top:8px;
+  font-size:15px;
+  opacity:.7;
+}
+
+.stat-stack{
+  margin-top:24px;
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+}
+
+.stat-value{
+  font-size:30px;
+  font-weight:800;
+}
+
+.stat-label{
+  font-size:13px;
+  opacity:.7;
+}
+
+.trip-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+  margin-top:20px;
+}
+
+.mini-card{
+  background:rgba(255,255,255,.28);
+  backdrop-filter:blur(8px);
+  border-radius:22px;
+  padding:16px;
+}
+
+@media (prefers-color-scheme: dark){
+
+.mini-card{
+  background:rgba(255,255,255,.05);
+}
+
+}
+
+.mini-number{
+  font-size:28px;
+  font-weight:800;
+}
+
+.blob-wrapper{
+  margin-top:28px;
+}
+
+.blob{
+  width:100%;
+  height:88px;
+  position:relative;
+  overflow:hidden;
+
+  border-radius:
+    45% 55% 58% 42% /
+    42% 38% 62% 58%;
+
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.15);
+}
+
+.blob-fill{
+  width:100%;
+  height:100%;
+}
+
+.blob-labels{
+  margin-top:10px;
+
+  display:flex;
+  justify-content:space-between;
+
+  font-size:13px;
+  font-weight:600;
+  opacity:.75;
+}
+
+.life-top{
+  margin-bottom:24px;
+}
+
+.life-sub{
+  font-size:14px;
+  opacity:.7;
+}
+
+.life-days{
+  margin-top:12px;
+  font-size:clamp(72px,12vw,120px);
+  font-weight:900;
+  line-height:.9;
+}
+
+.life-days-label{
+  font-size:16px;
+  opacity:.7;
+}
+
+.averages{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+  margin-top:22px;
+}
+
+.snapshot-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+}
+
+.snapshot-item{
+  background:rgba(255,255,255,.28);
+  border-radius:22px;
+  padding:16px;
+}
+
+@media (prefers-color-scheme: dark){
+
+.snapshot-item{
+  background:rgba(255,255,255,.05);
+}
+
+}
+
+.snapshot-title{
+  font-size:13px;
+  opacity:.7;
+  margin-bottom:8px;
+}
+
+.snapshot-value{
+  font-size:28px;
+  font-weight:800;
+}
+
+.snapshot-date{
+  margin-top:6px;
+  font-size:12px;
+  opacity:.65;
+}
+
+@media (max-width:700px){
+
+.trip-grid,
+.averages,
+.snapshot-grid{
+  grid-template-columns:1fr;
+}
+
+body{
+  padding:18px;
+}
+
+.card{
+  padding:22px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="loading">
+  ✨ loading cute stats...
+</div>
+
+<div id="error" style="display:none;">
+  couldn't load stats ☁️
+</div>
+
+<div id="app">
+
+  <div class="header">
+    <h1 id="title">✨ Cute Stats</h1>
+  </div>
+
+  <div class="card time-card">
+
+    <div class="card-title">⌛ Time Well Spent</div>
+
+    <div class="hero" id="hoursWorked">--</div>
+    <div class="hero-label">actual hours worked</div>
+
+    <div class="stat-stack">
+
+      <div>
+        <div class="stat-value" id="plannedHours">--</div>
+        <div class="stat-label">planned</div>
+      </div>
+
+      <div>
+        <div class="stat-value" id="differenceHours">--</div>
+        <div class="stat-label">difference</div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="card travel-card">
+
+    <div class="card-title">🚕 On The Way</div>
+
+    <div class="hero" id="totalTrips">--</div>
+    <div class="hero-label">trips</div>
+
+    <div class="trip-grid">
+
+      <div class="mini-card">
+        <div class="mini-number" id="uberCost">--</div>
+        <div class="stat-label">total uber cost</div>
+      </div>
+
+      <div class="mini-card">
+        <div class="mini-number" id="carpoolRate">--</div>
+        <div class="stat-label">carpooled</div>
+      </div>
+
+    </div>
+
+    <div class="blob-wrapper">
+
+      <div class="blob">
+
+        <div id="blobFill" class="blob-fill"></div>
+
+      </div>
+
+      <div class="blob-labels">
+        <span id="goingShareLabel">going</span>
+        <span id="returningShareLabel">returning</span>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="card life-card">
+
+    <div class="card-title">☀️ A Day In The Life</div>
+
+    <div class="life-top">
+
+      <div class="life-sub" id="startDateText">
+        since --
+      </div>
+
+      <div style="margin-top:12px;">
+        you have worked
+      </div>
+
+      <div class="life-days" id="workDays">--</div>
+
+      <div class="life-days-label">
+        days
+      </div>
+
+    </div>
+
+    <div class="averages">
+
+      <div class="mini-card">
+        <div class="mini-number" id="avgShift">--</div>
+        <div class="stat-label">average shift</div>
+      </div>
+
+      <div class="mini-card">
+        <div class="mini-number" id="avgWeek">--</div>
+        <div class="stat-label">average week</div>
+      </div>
+
+      <div class="mini-card">
+        <div class="mini-number" id="avgUberDay">--</div>
+        <div class="stat-label">average uber/day</div>
+      </div>
+
+      <div class="mini-card">
+        <div class="mini-number" id="avgUberWeek">--</div>
+        <div class="stat-label">average uber/week</div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="card snap-card">
+
+    <div class="card-title">🎞 Snapshots</div>
+
+    <div class="snapshot-grid">
+
+      <div class="snapshot-item">
+        <div class="snapshot-title">Longest Shift</div>
+        <div class="snapshot-value" id="longestShift">--</div>
+        <div class="snapshot-date" id="longestShiftDate">--</div>
+      </div>
+
+      <div class="snapshot-item">
+        <div class="snapshot-title">Most Expensive Uber Day</div>
+        <div class="snapshot-value" id="mostExpensiveUber">--</div>
+        <div class="snapshot-date" id="mostExpensiveUberDate">--</div>
+      </div>
+
+      <div class="snapshot-item">
+        <div class="snapshot-title">Shortest Shift</div>
+        <div class="snapshot-value" id="shortestShift">--</div>
+        <div class="snapshot-date" id="shortestShiftDate">--</div>
+      </div>
+
+      <div class="snapshot-item">
+        <div class="snapshot-title">Cheapest Uber Day</div>
+        <div class="snapshot-value" id="cheapestUber">--</div>
+        <div class="snapshot-date" id="cheapestUberDate">--</div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+
+const CSV_URL =
+'https://docs.google.com/spreadsheets/d/e/2PACX-1vSp5DknacRo5BImdHw4NZdL2FUGBRh4hZvotLQkupglrML0JV7gg1MvfY46lHrQ5kW66Ur-WQZvQ3Y3/pub?gid=286953219&single=true&output=csv';
+
+function parseCSV(text){
+
+  const rows = [];
+  let row = [];
+  let value = '';
+  let insideQuotes = false;
+
+  for(let i=0;i<text.length;i++){
+
+    const char = text[i];
+    const next = text[i+1];
+
+    if(char === '"'){
+
+      if(insideQuotes && next === '"'){
+        value += '"';
+        i++;
+      }else{
+        insideQuotes = !insideQuotes;
+      }
+
+    }else if(char === ',' && !insideQuotes){
+
+      row.push(value);
+      value='';
+
+    }else if((char === '\n' || char === '\r') && !insideQuotes){
+
+      if(value !== '' || row.length){
+
+        row.push(value);
+        rows.push(row);
+
+        row=[];
+        value='';
+      }
+
+    }else{
+      value += char;
+    }
+  }
+
+  return rows;
+}
+
+function getValue(map,key){
+  return map[key]?.value || '';
+}
+
+function getExtra(map,key){
+  return map[key]?.extra || '';
+}
+
+async function loadData(){
+
+  try{
+
+    const response = await fetch(CSV_URL);
+    const csv = await response.text();
+
+    const rows = parseCSV(csv);
+
+    const map = {};
+
+    rows.forEach(r=>{
+      map[r[0]] = {
+        value:r[1] || '',
+        extra:r[2] || ''
+      };
+    });
+
+    document.getElementById('title').textContent =
+      '✨ ' + (getValue(map,'Title') || 'Cute Stats');
+
+    document.getElementById('hoursWorked').textContent =
+      getValue(map,'Total Hours Worked');
+
+    document.getElementById('plannedHours').textContent =
+      getValue(map,'Total Planned Hours');
+
+    document.getElementById('differenceHours').textContent =
+      getValue(map,'Total Difference');
+
+    document.getElementById('totalTrips').textContent =
+      getValue(map,'Total Trips');
+
+    document.getElementById('uberCost').textContent =
+      getValue(map,'Total Uber Cost');
+
+    document.getElementById('carpoolRate').textContent =
+      getValue(map,'Carpool Rate');
+
+    document.getElementById('startDateText').textContent =
+      'since ' + getValue(map,'Start Date');
+
+    document.getElementById('workDays').textContent =
+      getValue(map,'Total Work Days');
+
+    document.getElementById('avgShift').textContent =
+      getValue(map,'Av Hours per Workday');
+
+    document.getElementById('avgWeek').textContent =
+      getValue(map,'Av Hours per Week');
+
+    document.getElementById('avgUberDay').textContent =
+      getValue(map,'Av Uber per Workday');
+
+    document.getElementById('avgUberWeek').textContent =
+      getValue(map,'Av Uber per Week');
+
+    document.getElementById('longestShift').textContent =
+      getValue(map,'Longest shift');
+
+    document.getElementById('longestShiftDate').textContent =
+      getExtra(map,'Longest shift');
+
+    document.getElementById('shortestShift').textContent =
+      getValue(map,'Shortest shift');
+
+    document.getElementById('shortestShiftDate').textContent =
+      getExtra(map,'Shortest shift');
+
+    document.getElementById('mostExpensiveUber').textContent =
+      getValue(map,'Most Expensive Uber Day');
+
+    document.getElementById('mostExpensiveUberDate').textContent =
+      getExtra(map,'Most Expensive Uber Day');
+
+    document.getElementById('cheapestUber').textContent =
+      getValue(map,'Cheapest Uber Day');
+
+    document.getElementById('cheapestUberDate').textContent =
+      getExtra(map,'Cheapest Uber Day');
+
+    const going =
+      parseFloat(
+        getValue(map,'Going Share')
+          .replace('%','')
+      ) || 0;
+
+    const returning =
+      parseFloat(
+        getValue(map,'Returning Share')
+          .replace('%','')
+      ) || 0;
+
+    document.getElementById('goingShareLabel').textContent =
+      `going ${going}%`;
+
+    document.getElementById('returningShareLabel').textContent =
+      `returning ${returning}%`;
+
+    document.getElementById('blobFill').style.background =
+      `linear-gradient(
+        90deg,
+        var(--blob-going) 0%,
+        var(--blob-going) ${going}%,
+        var(--blob-return) ${going}%,
+        var(--blob-return) 100%
+      )`;
+
+    document.getElementById('loading').style.display='none';
+    document.getElementById('app').style.display='flex';
+
+  }catch(err){
+
+    console.error(err);
+
+    document.getElementById('loading').style.display='none';
+    document.getElementById('error').style.display='block';
+
+  }
+
+}
+
+loadData();
+
+</script>
+
+</body>
+</html>
+```
