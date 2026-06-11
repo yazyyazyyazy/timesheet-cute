@@ -265,6 +265,29 @@ body{
   margin-top:28px;
 }
   .blob{
+  position:relative;
+}
+
+.blob::before,
+.blob::after{
+
+  content:"";
+
+  position:absolute;
+
+  width:120px;
+  height:120px;
+
+  border-radius:50%;
+}
+  .blob::before{
+  left:0;
+}
+
+.blob::after{
+  right:0;
+}
+  .blob{
 
   width:85%;
 
