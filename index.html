@@ -728,17 +728,17 @@ async function loadData(){
     document.getElementById('cheapestUberDate').textContent =
       getExtra(map,'Cheapest Uber Day');
 
-    const going =
-      parseFloat(
-        getValue(map,'Going Carpool')
-          .replace('%','')
-      ) || 0;
+const going =
+  parseFloat(
+    (getValue(map,'Going Carpool') || '0')
+      .replace('%','')
+  ) || 0;
 
-    const returning =
-      parseFloat(
-        getValue(map,'Returning Carpool')
-          .replace('%','')
-      ) || 0;
+const returning =
+  parseFloat(
+    (getValue(map,'Returning Carpool') || '0')
+      .replace('%','')
+  ) || 0;
     
     document.getElementById('goingCarpoolLabel').textContent =
       `going ${going}%`;
