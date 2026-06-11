@@ -114,6 +114,17 @@ body{
   box-shadow:var(--shadow);
   
 }
+  .card{
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease;
+}
+
+.card:hover{
+  transform:translateY(-4px);
+}
+
+
 .card::before{
 
   content:"";
@@ -133,6 +144,14 @@ body{
   opacity:.18;
 
   pointer-events:none;
+}
+
+  .card::before{
+  transition:transform .4s ease;
+}
+
+.card:hover::before{
+  transform:scale(1.08);
 }
 
   .time-card::before{
@@ -168,10 +187,16 @@ body{
 }
 
 .card-title{
-  font-size:15px;
-  font-weight:700;
-  opacity:.75;
-  margin-bottom:18px;
+  
+  font-family:'Fraunces',serif;
+  
+  font-size:28px;
+
+  font-weight:600;
+
+  margin-bottom:28px;
+
+  color:var(--text);
 }
 
 .hero{
@@ -244,7 +269,7 @@ body{
 
   width:100%;
 
-  height:140px;
+  height:160px;
 
   position:relative;
 
@@ -257,18 +282,19 @@ body{
   animation:
     blobFloat 12s ease-in-out infinite alternate;
 }
-  @keyframes blobFloat{
+
+@keyframes blobFloat{
 
   0%{
     border-radius:
-      58% 42% 61% 39% /
-      36% 62% 38% 64%;
+      68% 32% 70% 30% /
+      48% 50% 50% 52%;
   }
 
   100%{
     border-radius:
-      43% 57% 38% 62% /
-      58% 42% 63% 37%;
+      32% 68% 30% 70% /
+      52% 48% 52% 48%;
   }
 
 }
