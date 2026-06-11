@@ -499,8 +499,8 @@ body{
       </div>
 
       <div class="blob-labels">
-        <span id="goingShareLabel">going</span>
-        <span id="returningShareLabel">returning</span>
+        <span id="goingCarpoolLabel">going</span>
+        <span id="returningCarpoolLabel">returning</span>
       </div>
 
     </div>
@@ -730,23 +730,20 @@ async function loadData(){
 
     const going =
       parseFloat(
-        getValue(map,'Going Share')
+        getValue(map,'Going Carpool')
           .replace('%','')
       ) || 0;
 
     const returning =
       parseFloat(
-        getValue(map,'Returning Share')
+        getValue(map,'Returning Carpool')
           .replace('%','')
       ) || 0;
     
-console.log(getValue(map,'Going Share'));
-console.log(getValue(map,'Returning Share'));
-    
-    document.getElementById('goingShareLabel').textContent =
+    document.getElementById('goingCarpoolLabel').textContent =
       `going ${going}%`;
 
-    document.getElementById('returningShareLabel').textContent =
+    document.getElementById('returningCarpoolLabel').textContent =
       `returning ${returning}%`;
 
 const blendStart = Math.max(0, going - 6);
