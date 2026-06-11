@@ -30,7 +30,7 @@
     0 10px 30px rgba(92,71,52,.08);
 
   --blob-going:#E7BE9D;
-  --blob-return:#CBB7E8;
+  --blob-returning:#CBB7E8;
 
 }
 
@@ -52,7 +52,7 @@
     0 12px 32px rgba(0,0,0,.35);
 
   --blob-going:#E0AE83;
-  --blob-return:#B7A2E5;
+  --blob-returning:#B7A2E5;
 
 }
 
@@ -755,8 +755,8 @@ document.getElementById('blobFill').style.background =
     var(--blob-going) 0%,
     var(--blob-going) ${blendStart}%,
     #E9D5C6 ${going}%,
-    var(--blob-return) ${blendEnd}%,
-    var(--blob-return) 100%
+    var(--blob-returning) ${blendEnd}%,
+    var(--blob-returning) 100%
   )`;
 
     document.getElementById('loading').style.display='none';
