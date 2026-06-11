@@ -264,37 +264,45 @@ body{
 .blob-wrapper{
   margin-top:28px;
 }
-
 .blob{
 
   width:100%;
-
   height:160px;
 
   position:relative;
-
   overflow:hidden;
 
+  transform: rotate(-2deg);
+
+  transition:
+    transform .4s ease;
+
   border-radius:
-    58% 42% 61% 39% /
-    36% 62% 38% 64%;
+    78% 22% 78% 22% /
+    52% 48% 52% 48%;
 
   animation:
     blobFloat 12s ease-in-out infinite alternate;
 }
-
+  
 @keyframes blobFloat{
 
   0%{
     border-radius:
+      78% 22% 78% 22% /
+      52% 48% 52% 48%;
+  }
+
+  50%{
+    border-radius:
       68% 32% 70% 30% /
-      48% 50% 50% 52%;
+      45% 55% 45% 55%;
   }
 
   100%{
     border-radius:
-      32% 68% 30% 70% /
-      52% 48% 52% 48%;
+      22% 78% 22% 78% /
+      48% 52% 48% 52%;
   }
 
 }
@@ -302,7 +310,11 @@ body{
   width:100%;
   height:100%;
 }
-
+.travel-card:hover .blob{
+  transform:
+    rotate(1deg)
+    scale(1.02);
+}
 .blob-labels{
   margin-top:10px;
 
