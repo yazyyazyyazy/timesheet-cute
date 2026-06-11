@@ -746,19 +746,6 @@ const returning =
     document.getElementById('returningCarpoolLabel').textContent =
       `returning ${returning}%`;
 
-const blendStart = Math.max(0, going - 6);
-const blendEnd = Math.min(100, going + 6);
-
-document.getElementById('blobFill').style.background =
-  `linear-gradient(
-    90deg,
-    var(--blob-going) 0%,
-    var(--blob-going) ${blendStart}%,
-    #E9D5C6 ${going}%,
-    var(--blob-returning) ${blendEnd}%,
-    var(--blob-returning) 100%
-  )`;
-
     document.getElementById('loading').style.display='none';
     document.getElementById('app').style.display='flex';
 
