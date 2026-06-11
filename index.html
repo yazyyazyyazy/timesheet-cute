@@ -10,44 +10,50 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 
 :root{
-  --bg:#f7f4ef;
 
-  --time:#f6eee6;
-  --travel:#fff1cb;
-  --life:#ffe7ea;
-  --snap:#e9f0ff;
+  --bg:#F7F0E8;
 
-  --text:#252525;
-  --muted:#6d6d6d;
+  --time:#F2E5D7;
+  --travel:#F5E0CC;
+  --life:#EFE2D3;
+  --snap:#EADFD8;
 
-  --shadow:0 12px 30px rgba(0,0,0,.08);
+  --text:#5F4B3E;
+  --muted:#8B7462;
 
-  --blob-going:#ffd4a8;
-  --blob-return:#d8c8ff;
+  --shadow:
+    0 10px 30px rgba(92,71,52,.08);
+
+  --blob-going:#E7BE9D;
+  --blob-return:#CBB7E8;
+
 }
 
 @media (prefers-color-scheme: dark){
 
 :root{
-  --bg:#141414;
 
-  --time:#32281f;
-  --travel:#352f1c;
-  --life:#3a252b;
-  --snap:#243047;
+  --bg:#1E1916;
 
-  --text:#f7f7f7;
-  --muted:#bdbdbd;
+  --time:#3A2F27;
+  --travel:#433224;
+  --life:#403228;
+  --snap:#372E3A;
 
-  --shadow:0 12px 30px rgba(0,0,0,.35);
+  --text:#F3EAE2;
+  --muted:#C9B9AD;
 
-  --blob-going:#ffbc82;
-  --blob-return:#bca9ff;
+  --shadow:
+    0 12px 32px rgba(0,0,0,.35);
+
+  --blob-going:#E0AE83;
+  --blob-return:#B7A2E5;
+
 }
 
 }
@@ -65,7 +71,7 @@ body{
   padding:28px;
   background:var(--bg);
   color:var(--text);
-  font-family:'Inter',sans-serif;
+  font-family:'Manrope',sans-serif;
 
   display:flex;
   flex-direction:column;
@@ -99,11 +105,52 @@ body{
 }
 
 .card{
-  border-radius:36px;
+  position:relative;
+
+  overflow:hidden;
+
+  border-radius:42px;
   padding:28px;
   box-shadow:var(--shadow);
+  
+}
+.card::before{
+
+  content:"";
+
+  position:absolute;
+
+  width:220px;
+  height:220px;
+
+  top:-90px;
+  right:-70px;
+
+  border-radius:
+  58% 42% 63% 37% /
+  42% 58% 39% 61%;
+
+  opacity:.18;
+
+  pointer-events:none;
 }
 
+  .time-card::before{
+  background:#EAD7C7;
+}
+
+.travel-card::before{
+  background:#E7BE9D;
+}
+
+.life-card::before{
+  background:#DCCDBD;
+}
+
+.snap-card::before{
+  background:#CBB7E8;
+}
+  
 .time-card{
   background:var(--time);
 }
@@ -128,10 +175,15 @@ body{
 }
 
 .hero{
-  font-size:clamp(56px,10vw,90px);
-  font-weight:900;
-  line-height:.9;
-  letter-spacing:-3px;
+  font-family:'Fraunces',serif;
+
+  font-size:clamp(60px,10vw,92px);
+
+  font-weight:700;
+
+  line-height:.92;
+
+  letter-spacing:-2px;
 }
 
 .hero-label{
@@ -189,8 +241,34 @@ body{
 }
 
 .blob{
+
   width:100%;
-  height:88px;
+
+  height:120px;
+
+  border-radius:
+    58% 42% 61% 39% /
+    36% 62% 38% 64%;
+
+  animation:
+    blobFloat 12s ease-in-out infinite alternate;
+}
+  @keyframes blobFloat{
+
+  0%{
+    border-radius:
+      58% 42% 61% 39% /
+      36% 62% 38% 64%;
+  }
+
+  100%{
+    border-radius:
+      43% 57% 38% 62% /
+      58% 42% 63% 37%;
+  }
+
+}
+ <!-- this might have had to be erased below -->
   position:relative;
   overflow:hidden;
 
@@ -201,7 +279,7 @@ body{
   box-shadow:
     inset 0 0 0 1px rgba(255,255,255,.15);
 }
-
+ <!-- this might have had to be erased above -->
 .blob-fill{
   width:100%;
   height:100%;
@@ -267,20 +345,37 @@ body{
 }
 
 .snapshot-title{
-  font-size:13px;
-  opacity:.7;
-  margin-bottom:8px;
+
+  margin-top:12px;
+
+  font-size:12px;
+
+  text-transform:uppercase;
+
+  letter-spacing:.08em;
+
+  opacity:.6;
 }
 
 .snapshot-value{
-  font-size:28px;
-  font-weight:800;
+  font-family:'Fraunces',serif;
+
+  font-size:38px;
+
+  font-weight:600;
+
+  line-height:1;
 }
 
 .snapshot-date{
-  margin-top:6px;
-  font-size:12px;
-  opacity:.65;
+
+  margin-top:8px;
+
+  font-size:20px;
+
+  font-weight:600;
+
+  opacity:.8;
 }
 
 @media (max-width:700px){
@@ -324,15 +419,15 @@ body{
 
     <div class="card-title">⌛ Time Well Spent</div>
 
-    <div class="hero" id="hoursWorked">--</div>
-    <div class="hero-label">actual hours worked</div>
-
-    <div class="stat-stack">
-
       <div>
         <div class="stat-value" id="plannedHours">--</div>
         <div class="stat-label">planned</div>
       </div>
+    
+    <div class="hero" id="hoursWorked">--</div>
+    <div class="hero-label">actual hours worked</div>
+
+    <div class="stat-stack">
 
       <div>
         <div class="stat-value" id="differenceHours">--</div>
@@ -347,9 +442,9 @@ body{
 
     <div class="card-title">🚕 On The Way</div>
 
-    <div class="hero" id="totalTrips">--</div>
-    <div class="hero-label">trips</div>
-
+   <div class="hero">
+  <span id="totalTrips">--</span> trips
+</div>
     <div class="trip-grid">
 
       <div class="mini-card">
@@ -395,11 +490,9 @@ body{
         you have worked
       </div>
 
-      <div class="life-days" id="workDays">--</div>
-
-      <div class="life-days-label">
-        days
-      </div>
+<div class="life-days">
+  <span id="workDays">--</span> days
+</div>
 
     </div>
 
