@@ -265,29 +265,47 @@ body{
   margin-top:28px;
 }
 .blob{
+
+  width:85%;
+
+  height:170px;
+
+  margin:0 auto;
+
   position:relative;
+  overflow:hidden;
+
+  transform:rotate(-2deg);
+
+  transition:transform .4s ease;
+
+  border-radius:
+    70% 30% 70% 30% /
+    50% 50% 50% 50%;
+
+  animation:
+    blobFloat 12s ease-in-out infinite alternate;
 }
+  
+@keyframes blobFloat{
 
-.blob::before,
-.blob::after{
+  0%{
+    border-radius:
+      78% 22% 78% 22% /
+      52% 48% 52% 48%;
+  }
 
-  content:"";
+  50%{
+    border-radius:
+      68% 32% 70% 30% /
+      45% 55% 45% 55%;
+  }
 
-  position:absolute;
-
-  width:120px;
-  height:120px;
-
-  border-radius:50%;
+  100%{
+    border-radius:
+      22% 78% 22% 78% /
+      48% 52% 48% 52%;
 }
-  .blob::before{
-  left:0;
-}
-
-.blob::after{
-  right:0;
-}
-
 }
 .blob-fill{
   width:100%;
