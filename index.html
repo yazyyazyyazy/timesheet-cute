@@ -721,7 +721,10 @@ async function loadData(){
         getValue(map,'Returning Share')
           .replace('%','')
       ) || 0;
-
+    
+console.log(getValue(map,'Going Share'));
+console.log(getValue(map,'Returning Share'));
+    
     document.getElementById('goingShareLabel').textContent =
       `going ${going}%`;
 
