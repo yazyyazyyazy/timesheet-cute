@@ -1,0 +1,516 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Time Well Spent</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+
+  --bg:#F7F0E8;
+
+  --time:#F2E5D7;
+  --travel:#F5E0CC;
+  --life:#EFE2D3;
+  --snap:#EADFD8;
+
+  --text:#5F4B3E;
+  --muted:#8B7462;
+
+  --shadow:
+    0 10px 30px rgba(92,71,52,.08);
+}
+html,
+body{
+  margin:0;
+  padding:0;
+
+  width:100%;
+  height:100%;
+
+  overflow:hidden;
+
+  background:transparent;
+  font-family:'Fraunces',serif;
+}
+
+.widget-stage{
+  position:fixed;
+  inset:0;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  overflow:hidden;
+}
+
+
+
+.header{
+  text-align:center;
+  margin-bottom:8px;
+}
+
+.card::before{
+  content:"";
+
+  position:absolute;
+
+  width:220px;
+  height:220px;
+
+  top:-90px;
+  right:-70px;
+
+  background:#F8E7D7;
+
+  border-radius:60% 40% 55% 45%;
+
+  animation:blob1 12s ease-in-out infinite;
+}
+
+
+/* CARD */
+.card{
+  margin:0;
+
+  width:600px;
+  position:relative;
+  overflow: hidden;
+
+  flex-shrink:0;
+
+  transform-origin:center center;
+
+  padding:24px;
+  border-radius:28px;
+  background:#F5E0CC;
+  text-align:center;
+  box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+.card::after{
+  content:"";
+
+  position:absolute;
+
+  width:180px;
+  height:180px;
+
+  left:140px;
+  bottom:20px;
+
+  background:#F7F0E8;
+
+  opacity:.7;
+
+  border-radius:50% 50% 40% 60%;
+
+  animation:blob2 9s ease-in-out infinite;
+}
+.sparkle{
+  position:absolute;
+
+  color:rgba(255,255,255,.7);
+
+  pointer-events:none;
+}
+
+.sparkle1{
+  top:70px;
+  right:130px;
+
+  animation:twinkle 4s infinite;
+}
+
+.sparkle2{
+  bottom:70px;
+  left:80px;
+
+  animation:twinkle 6s infinite;
+}
+@keyframes twinkle{
+
+  0%,100%{
+    opacity:.2;
+    transform:scale(.8);
+  }
+
+  50%{
+    opacity:1;
+    transform:scale(1.2);
+  }
+}
+
+@keyframes blob1{
+
+  0%,100%{
+    transform:
+      rotate(0deg)
+      translateY(0px);
+  }
+
+  50%{
+    transform:
+      rotate(10deg)
+      translateY(12px);
+  }
+}
+
+@keyframes blob2{
+
+  0%,100%{
+    border-radius:50% 50% 40% 60%;
+    transform:translateX(0);
+  }
+
+  50%{
+    border-radius:60% 40% 55% 45%;
+    transform:translateX(12px);
+  }
+}
+
+/* TITLE */
+h1{
+  display:inline-block;
+
+  padding:8px 16px;
+
+  margin-bottom:24px;
+
+  border-radius:4px;
+
+  background:rgba(255,255,255,.4);
+
+  border:1px solid rgba(255,255,255,.3);
+
+  color:#5F4B3E;
+
+  font-size:16px;
+
+  letter-spacing:1.5px;
+
+  text-transform:uppercase;
+}
+
+.hero{
+  font-family:'Fraunces',serif;
+  font-size:clamp(60px,10vw,92px);
+  padding-top: 10px;
+  display:inline-flex;
+  align-items: center;
+
+  font-weight:700;
+
+  line-height:.92;
+
+  letter-spacing:-2px;
+  color:#6F5647;
+  margin-bottom:10px;
+  text-shadow: 0 3px 10px rgba(255,255,255,.3);
+  animation:breathe 5s ease-in-out infinite;
+}
+
+
+.hero-row{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:16px;
+}
+@keyframes breathe{
+
+  0%,100%{
+    transform:scale(1);
+  }
+
+  50%{
+    transform:scale(1.03);
+  }
+
+}
+
+.hero-label{
+  text-align:left;
+  line-height:1.1;
+
+  position:relative;
+  top:10px;
+  font-size:30px;
+  opacity:.7;
+  color:var(--text);
+  font-weight:700;
+}
+.stat-stack{
+  margin-top:24px;
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+}
+
+.stat-value{
+  margin: 0;
+  display:inline-flex;
+  font-size:30px;
+  font-weight:800;
+  color:#9A8677;
+}
+
+.stat-label{
+  line-height:1;
+  padding:4px 10px;
+  font-style: italic;
+  margin:0 px;
+  display:inline-flex;
+  align-items: flex-start;
+  font-size:20px;
+  opacity:.7;
+  color:#9A8677;
+}
+
+/* we can fix it */
+.mini-card{
+  display:inline-flex;
+  gap:10px;
+  background:#FBF6F0;
+  border:1px solid rgba(255,255,255,.25);
+  backdrop-filter:blur(8px);
+  border-radius:22px;
+  padding:8px;
+  width: auto;
+  box-shadow: 0 2px 10px rgba(92,71,52,.04);
+  transform:rotate(-1deg);
+    
+}
+
+.mini-pill{
+  display:inline-flex;
+  align-items:center;
+
+  padding:4px 10px;
+  margin:0 4px;
+
+  background:rgba(255,255,255,.45);
+  backdrop-filter:blur(8px);
+
+  border-radius:999px;
+
+  vertical-align:middle;
+}
+
+.mini-pill .mini-number{
+  font-size:0.7em;
+  line-height:1;
+  margin:0;
+}
+/* we can fix it */
+
+.mini-number{
+  font-size:28px;
+  font-weight:800;
+  color: #b2957d
+}
+/* we can fix it */
+.top-row{
+  display:flex;
+  justify-content:flex-start;
+  margin-bottom:10px;
+  padding-left:10px;
+}
+
+.bottom-row{
+  display:flex;
+  justify-content:flex-end;
+  margin-top:24px;
+  padding-right:10px;
+}
+.bottom-row .mini-card{
+  transform:rotate(1deg);
+}
+.bottom-row .stat-label{
+  white-space:nowrap; 
+}
+.hero-row,
+.top-row,
+.bottom-row,
+h1{
+  position:relative;
+  z-index:2;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="widget-stage">
+  <div class="card" id="card">
+    <div class="sparkle sparkle1">✦</div>
+    <div class="sparkle sparkle2">✦</div>
+  <h1>Time Well Spent</h1>
+  <!--unsure but needs the classes defined -->
+
+ <div class="top-row">
+  <div class="mini-card">
+    <div class="stat-label">hours you planned to work... </div>
+    <div class="stat-value" id="plannedHours">--</div>
+  </div>
+</div>
+<div class="bottom-row">
+  <div class="mini-card">
+    <div class="stat-label">
+    you worked <br> an additional
+    &nbsp  &nbsp</div>
+    <div class="stat-value" id="differenceHours"></div>
+</div>
+</div>
+<div class="hero-row">
+
+  <div class="hero" id="hoursWorked">--</div>
+
+  <div class="hero-label">
+    Total Hours<br>
+    Worked
+  </div>
+
+</div>
+
+<script>
+
+const CSV_URL =
+'https://docs.google.com/spreadsheets/d/e/2PACX-1vSp5DknacRo5BImdHw4NZdL2FUGBRh4hZvotLQkupglrML0JV7gg1MvfY46lHrQ5kW66Ur-WQZvQ3Y3/pub?gid=286953219&single=true&output=csv';
+
+function parseCSV(text){
+
+  const rows = [];
+  let row = [];
+  let value = '';
+  let insideQuotes = false;
+
+  for(let i=0;i<text.length;i++){
+
+    const char = text[i];
+    const next = text[i+1];
+
+    if(char === '"'){
+
+      if(insideQuotes && next === '"'){
+        value += '"';
+        i++;
+      }else{
+        insideQuotes = !insideQuotes;
+      }
+
+    }else if(char === ',' && !insideQuotes){
+
+      row.push(value);
+      value='';
+
+    }else if((char === '\n' || char === '\r') && !insideQuotes){
+
+      if(value !== '' || row.length){
+
+        row.push(value);
+        rows.push(row);
+
+        row=[];
+        value='';
+      }
+
+    }else{
+      value += char;
+    }
+  }
+
+  return rows;
+}
+
+function getValue(map,key){
+  return map[key]?.value || '';
+}
+
+function getExtra(map,key){
+  return map[key]?.extra || '';
+}
+
+async function loadData(){
+
+  try{
+
+    const response = await fetch(CSV_URL);
+    const csv = await response.text();
+
+    const rows = parseCSV(csv);
+
+    const map = {};
+
+    rows.forEach(r=>{
+      map[r[0]] = {
+        value:r[1] || '',
+        extra:r[2] || ''
+      };
+    });
+    document.getElementById('hoursWorked').textContent =
+      getValue(map,'Total Hours Worked');
+
+    document.getElementById('plannedHours').textContent =
+      getValue(map,'Total Planned Hours');
+
+    document.getElementById('differenceHours').textContent =
+      getValue(map,'Total Difference');
+
+    document.getElementById('loading').style.display='none';
+    document.getElementById('app').style.display='flex';
+
+  }catch(err){
+
+    console.error(err);
+
+    document.getElementById('loading').style.display='none';
+    document.getElementById('error').style.display='block';
+
+  }
+
+}
+function scaleCard(){
+
+  const card = document.getElementById('card');
+
+  const DESIGN_WIDTH = 648;
+  const DESIGN_HEIGHT = 280;
+
+  const availableWidth =
+    document.documentElement.clientWidth;
+
+  const availableHeight =
+    document.documentElement.clientHeight;
+
+  const scaleX =
+    availableWidth / DESIGN_WIDTH;
+
+  const scaleY =
+    availableHeight / DESIGN_HEIGHT;
+
+  const scale =
+    Math.min(scaleX, scaleY);
+
+  card.style.transform =
+    `scale(${Math.min(scale,1)})`;
+}
+window.addEventListener('resize', scaleCard);
+window.addEventListener('load', scaleCard);
+loadData();
+
+</script>
+
+</body>
+</html>
