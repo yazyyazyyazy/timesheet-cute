@@ -34,23 +34,29 @@
 }
 html,
 body{
-  width:fit-content;
-  height:fit-content;
   margin:0;
   padding:0;
 
+  width:100%;
+  height:100%;
+
+  overflow:hidden;
+
   background:transparent;
   font-family:'Fraunces',serif;
-  display:flex;
-  justify-content:center;
-  align-items:flex-start;
 }
 
 .widget-stage{
-  display:inline-flex;
+  position:fixed;
+  inset:0;
+
+  display:flex;
   justify-content:center;
   align-items:center;
+
+  overflow:hidden;
 }
+
 
 .header{
   text-align:center;
@@ -63,6 +69,9 @@ body{
   margin:0;
 
   width:416px;
+  position:relative;
+
+  flex-shrink:0;
 
   transform-origin:center center;
 
@@ -387,26 +396,31 @@ function updatePeanut(percent){
 }
 function scaleCard(){
 
-  const stage = document.querySelector('.widget-stage');
   const card = document.getElementById('card');
 
-  const stageWidth = stage.clientWidth;
-  const stageHeight = stage.clientHeight;
+  const DESIGN_WIDTH = 464;
+  const DESIGN_HEIGHT = 560;
 
-  const cardWidth = 464;
-  const cardHeight = 560;
+  const availableWidth =
+    document.documentElement.clientWidth;
 
-  const scale = Math.min(
-    stageWidth / cardWidth,
-    stageHeight / cardHeight
-  );
+  const availableHeight =
+    document.documentElement.clientHeight;
+
+  const scaleX =
+    availableWidth / DESIGN_WIDTH;
+
+  const scaleY =
+    availableHeight / DESIGN_HEIGHT;
+
+  const scale =
+    Math.min(scaleX, scaleY);
 
   card.style.transform =
     `scale(${Math.min(scale,1)})`;
 }
-
-// window.addEventListener('resize', scaleCard);
-// window.addEventListener('load', scaleCard);
+window.addEventListener('resize', scaleCard);
+window.addEventListener('load', scaleCard);
 loadData();
 </script>
 
