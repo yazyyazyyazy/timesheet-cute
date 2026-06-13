@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Peanut Caronas</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+
+  --bg:#F7F0E8;
+
+  --time:#F2E5D7;
+  --travel:#F5E0CC;
+  --life:#EFE2D3;
+  --snap:#EADFD8;
+
+  --text:#5F4B3E;
+  --muted:#8B7462;
+
+  --shadow:
+    0 10px 30px rgba(92,71,52,.08);
+
+  --peanut-caronas:#E7BE9D;
+  --peanut-ubers:#CBB7E8;
+
+}
+html,
+body{
+  width:fit-content;
+  height:fit-content;
+  margin:0;
+  padding:0;
+
+  background:transparent;
+  font-family:'Fraunces',serif;
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+}
+
+.widget-stage{
+  display:inline-flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.header{
+  text-align:center;
+  margin-bottom:8px;
+}
+
+
+/* CARD */
+.card{
+  margin:0;
+
+  width:416px;
+
+  transform-origin:center center;
+
+  padding:24px;
+  border-radius:28px;
+  background:#F2E5D7;
+  text-align:center;
+  box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+
+/* TITLE */
+h1{
+  font-size:22px;
+  margin-bottom:18px;
+  color:#5F4B3E;
+}
+
+.hero{
+  font-family:'Fraunces',serif;
+  font-size:clamp(60px,10vw,92px);
+
+  font-weight:700;
+
+  line-height:.92;
+
+  letter-spacing:-2px;
+  color:#8B7462;
+  margin-bottom:10px;
+
+}
+.hero-label{
+  margin-top:8px;
+  font-size:15px;
+  opacity:.7;
+}
+.stat-label{
+  font-size:13px;
+  opacity:.7;
+}
+/* we can fix it */
+.mini-card{
+  background:rgba(255,255,255,.28);
+  backdrop-filter:blur(8px);
+  border-radius:22px;
+  padding:8px;
+  width: 150px;
+}
+.mini-pill{
+  display:inline-flex;
+  align-items:center;
+
+  padding:4px 10px;
+  margin:0 4px;
+
+  background:rgba(255,255,255,.45);
+  backdrop-filter:blur(8px);
+
+  border-radius:999px;
+
+  vertical-align:middle;
+}
+
+.mini-pill .mini-number{
+  font-size:0.7em;
+  line-height:1;
+  margin:0;
+}
+/* we can fix it */
+
+.mini-number{
+  font-size:28px;
+  font-weight:800;
+  color: #b2957d
+}
+/* we can fix it */
+
+/* PEANUT CORE */
+.peanut{
+  --carpool:50;
+  --wobble:0%;
+
+  width:240px;
+  height:140px;
+  margin:0 auto;
+  position:relative;
+
+  background:linear-gradient(
+    90deg,
+    var(--peanut-caronas) 0%,
+    var(--peanut-caronas) calc(var(--carpool) * 1% + var(--wobble)),
+    var(--peanut-ubers) calc(var(--carpool) * 1% + var(--wobble)),
+    var(--peanut-ubers) 100%
+  );
+
+  border-radius:60% 40% 60% 40% / 50% 50% 50% 50%;
+
+  animation:
+    morph 6s ease-in-out infinite,
+    slosh 4s ease-in-out infinite;
+  transition:background .4s ease;
+}
+
+/* soft inner flow (this is what makes it feel “connected”) */
+.peanut::before{
+  content:"";
+  position:absolute;
+  inset:0;
+
+  background:inherit;
+
+  filter:blur(14px);
+  opacity:.35;
+
+  border-radius:inherit;
+}
+
+
+/* MORPH ANIMATION */
+@keyframes morph{
+
+  0%{
+    border-radius:65% 35% 60% 40% / 55% 45% 55% 45%;
+  }
+
+  50%{
+    border-radius:40% 60% 35% 65% / 45% 55% 45% 55%;
+  }
+
+  100%{
+    border-radius:60% 40% 65% 35% / 50% 50% 50% 50%;
+  }
+
+}
+
+/* TEXT */
+.big{
+  font-size:34px;
+  margin-top:16px;
+  color:#5F4B3E;
+}
+
+
+/* LABELS */
+.labels{
+  display:flex;
+  justify-content:space-between;
+  margin-top:10px;
+  font-size:14px;
+  opacity:.75;
+}
+.label-group{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:4px;
+}
+
+.label-percent{
+  font: size 14px;
+  letter-spacing:.5px;
+  text-transform:uppercase;
+  color:#B2957D;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="widget-stage">
+  <div class="card" id="card">
+
+  <h1>On The Way</h1>
+  <!--unsure but needs the classes defined -->
+  <div class="hero">
+  <span id="totalTrips">--</span> trips total</div>
+    <div class="trip-grid">
+      <div class="mini-card">
+        <div 
+        class="stat-label">Gastou 
+        <div class="mini-number" id="uberCost">--</div>com Uber...</div>
+      </div>
+<!--unsure but needs the classes defined -->
+  <div class="peanut" id="peanut"></div>
+<!--STUCK HERE-->
+
+  <div class="big" id="text">...mas economizou   <span class="mini-pill">
+    <span class="mini-number" id="carpoolRate">--</span>
+  </span> nas caronas ;) </div>
+
+  <!--OLD LABELS-->
+  <div class="labels">
+
+  <div class="label-group">
+    <div class="label-percent" id="caronaPercent">--%</div>
+    <div>Peanut Carona</div>
+  </div>
+
+  <div class="label-group">
+    <div class="label-percent" id="uberPercent">--%</div>
+    <div>Peanut Uber</div>
+  </div>
+
+  </div>
+  </div>
+</div>
+<!--STUCK HERE-->
+
+<script>
+/*SHEETS*/
+const CSV_URL =
+'https://docs.google.com/spreadsheets/d/e/2PACX-1vSp5DknacRo5BImdHw4NZdL2FUGBRh4hZvotLQkupglrML0JV7gg1MvfY46lHrQ5kW66Ur-WQZvQ3Y3/pub?gid=286953219&single=true&output=csv';
+function parseCSV(text){
+const rows = [];
+let row = [];
+let value = '';
+let insideQuotes = false;
+    for(let i=0;i<text.length;i++){
+        const char = text[i];
+        const next = text[i+1];
+        if(char === '"'){
+            if(insideQuotes && next === '"'){ value += '"';
+            i++;
+        }else{
+            insideQuotes = !insideQuotes;
+        }
+
+    }else if(char === ',' && !insideQuotes){
+
+      row.push(value);
+      value='';
+
+    }else if((char === '\n' || char === '\r') && !insideQuotes){
+
+      if(value !== '' || row.length){
+
+        row.push(value);
+        rows.push(row);
+
+        row=[];
+        value='';
+      }
+
+    }else{
+      value += char;
+    }
+  }
+
+  return rows;
+}
+
+function getValue(map,key){
+  return map[key]?.value || '';
+}
+
+function getExtra(map,key){
+  return map[key]?.extra || '';
+}
+
+async function loadData(){
+
+  try{
+
+    const response = await fetch(CSV_URL);
+    const csv = await response.text();
+
+    const rows = parseCSV(csv);
+
+    const map = {};
+
+    rows.forEach(r=>{
+      map[r[0]] = {
+        value:r[1] || '',
+        extra:r[2] || ''
+      };
+    });
+document.getElementById('totalTrips').textContent =
+      getValue(map,'Total Trips');
+
+
+document.getElementById('uberCost').textContent =
+      getValue(map,'Total Uber Cost');
+
+document.getElementById('carpoolRate').textContent =
+      getValue(map,'Carpool Rate');
+
+const carona =
+  parseFloat(
+    (getValue(map,'Carpool Rate') || '0')
+      .replace('%','')
+          ) || 0;
+const uber = 100 - carona;
+
+document.getElementById('caronaPercent').textContent =
+  carona.toFixed(1) + '%';
+
+document.getElementById('uberPercent').textContent =
+  uber.toFixed(1) + '%';
+
+updatePeanut(carona);
+  document.getElementById('loading').style.display='none';
+    document.getElementById('app').style.display='flex';
+
+  }catch(err){
+
+    console.error(err);
+
+    document.getElementById('loading').style.display='none';
+    document.getElementById('error').style.display='block';
+
+  }
+}
+function updatePeanut(percent){
+
+  const peanut = document.getElementById('peanut');
+
+  peanut.style.setProperty(
+    '--carpool',
+    Math.max(0, Math.min(100, percent))
+  );
+
+}
+function scaleCard(){
+
+  const stage = document.querySelector('.widget-stage');
+  const card = document.getElementById('card');
+
+  const stageWidth = stage.clientWidth;
+  const stageHeight = stage.clientHeight;
+
+  const cardWidth = 464;
+  const cardHeight = 560;
+
+  const scale = Math.min(
+    stageWidth / cardWidth,
+    stageHeight / cardHeight
+  );
+
+  card.style.transform =
+    `scale(${Math.min(scale,1)})`;
+}
+
+// window.addEventListener('resize', scaleCard);
+// window.addEventListener('load', scaleCard);
+loadData();
+</script>
+
+</body>
+</html>
