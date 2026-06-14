@@ -94,6 +94,63 @@ body{
   text-align:center;
   box-shadow:0 10px 30px rgba(0,0,0,.08);
 }
+.card .border{
+  position:absolute;
+
+  inset:12px;
+
+  border:2px dashed rgba(95,75,62,.12);
+
+  border-radius:20px;
+
+  pointer-events:none;
+}
+.card .sparkle1{
+  position:absolute;
+
+  top:94px;
+  left:30px;
+
+  font-size:22px;
+
+  color:#B79FD8;
+
+  animation:spinSparkle1 10s linear infinite;
+}
+.card .sparkle2{
+  position:absolute;
+
+  bottom:10px;
+  right:40px;
+
+  font-size:22px;
+
+  color:#B79FD8;
+
+  animation:spinSparkle2 10s linear infinite;
+}
+@keyframes spinSparkle1{
+
+  from{
+    transform:rotate(0deg);
+  }
+
+  to{
+    transform:rotate(360deg);
+  }
+
+}
+@keyframes spinSparkle2{
+
+  from{
+    transform:rotate(0deg);
+  }
+
+  to{
+    transform:rotate(360deg);
+  }
+
+}
 .card::after{
   content:"";
 
@@ -120,10 +177,11 @@ body{
   }
 
   50%{
-    transform:
-      rotate(100deg)
-      translateY(10px);
-  }
+  transform:
+    rotate(180deg)
+    translateY(18px)
+    scale(1.08);
+}
 }
 
 @keyframes blob2{
@@ -132,17 +190,19 @@ body{
     border-radius:50% 50% 40% 60%;
     transform:translateX(0);
   }
-
+  
   50%{
-    border-radius:60% 40% 55% 45%;
-    transform:translateX(15px);
-  }
+    transform:
+    translateX(20px)
+    translateY(-10px)
+    scale(1.12);
+}
 }
 
 /* TITLE */
 h1{
   display:inline-block;
-  background-color: #bab3ae76;
+  background-color:#FBF7F180;
   padding:0px 100px;
   border-radius:10px;
   margin-bottom:18px;
@@ -208,28 +268,42 @@ h1{
 }
 
 .snapshot-value{
-  font-family:'Fraunces',serif;
 
-  font-size:38px;
+  font-size:42px;
 
-  font-weight:600;
+  margin-top:4px;
 
-  line-height:1;
-
-  color:var(--text);
+  letter-spacing:-1px;
 }
 
 .snapshot-date{
+  font-size:18px;
+  font-style: italic;
+  opacity:.65;
 
   margin-top:8px;
 
-  font-size:20px;
 
-  font-weight:600;
+  font-weight:500;
+  font-family:'Manrope',serif;
 
   color:var(--text);
 
-  opacity:.8;
+}
+.snapshot-item:nth-child(1){
+  background:#FBF7F180;
+}
+
+.snapshot-item:nth-child(2){
+  background:#FBF7F180;
+}
+
+.snapshot-item:nth-child(3){
+  background:#FBF7F180;
+}
+
+.snapshot-item:nth-child(4){
+  background:#FBF7F180;
 }
 
 .stat-stack{
@@ -310,7 +384,9 @@ h1{
 <body>
 <div class="widget-stage">
   <div class="card" id="card">
-
+    <div class="sparkle1">✦</div>
+    <div class="sparkle2">✦</div>
+    <div class="border"></div>
   <h1>Snapshots</h1>
     <div class="snapshot-grid">
 
