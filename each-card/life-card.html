@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Cute Stats</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+
+  --bg:#F7F0E8;
+
+  --time:#F2E5D7;
+  --travel:#F5E0CC;
+  --life:#EFE2D3;
+  --snap:#EADFD8;
+
+  --text:#5F4B3E;
+  --muted:#8B7462;
+
+  --shadow:
+    0 10px 30px rgba(92,71,52,.08);
+}
+
+html,
+body{
+  margin:0;
+  padding:0;
+
+  width:100%;
+  height:100%;
+
+  overflow:hidden;
+
+  background:transparent;
+  font-family:'Fraunces',serif;
+}
+
+.widget-stage{
+  position:fixed;
+  inset:0;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  overflow:hidden;
+}
+
+.header{
+  text-align:center;
+  margin-bottom:8px;
+}
+/* CARD */
+.card{
+  margin:0;
+
+  width:416px;
+  position:relative;
+
+  flex-shrink:0;
+
+  transform-origin:center center;
+
+  padding:24px;
+  border-radius:28px;
+  background:var(--life);
+  text-align:center;
+  box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+
+/* TITLE */
+h1{
+  font-size:22px;
+  margin-bottom:18px;
+  color:#5F4B3E;
+}
+
+
+.card::before{
+  background:#DCCDBD;
+}
+
+.emphasis{
+  font-weight:700;
+}
+
+.hero{
+  font-family:'Fraunces',serif;
+  font-size:clamp(60px,10vw,92px);
+
+  font-weight:700;
+
+  line-height:.92;
+
+  letter-spacing:-2px;
+  color:#8B7462;
+  margin-bottom:10px;
+
+}
+.hero-label{
+  margin-top:8px;
+  font-size:15px;
+  opacity:.7;
+}
+
+.stat-stack{
+  margin-top:24px;
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+}
+
+.stat-value{
+  font-size:30px;
+  font-weight:800;
+}
+
+.stat-label{
+  font-size:20px;
+  display: inline-flex;
+  opacity:.7;
+  color: var(--muted);
+}
+
+/* we can fix it */
+.mini-card{
+  background:rgba(255,255,255,.28);
+  display: inline-flex;
+  backdrop-filter:blur(8px);
+  border-radius:22px;
+  padding:8px;
+  margin-top: 10px;
+  width: 150px;
+}
+.mini-pill{
+  display:inline-flex;
+  align-items:center;
+
+  padding:4px 10px;
+  margin:0 4px;
+
+  background:rgba(255,255,255,.45);
+  backdrop-filter:blur(8px);
+
+  border-radius:999px;
+
+  vertical-align:middle;
+}
+
+
+.mini-number{
+  font-size:30px;
+  display:inline-flex;
+  font-weight:800;
+  color:var(--text);
+}
+
+.mini-pill .mini-number{
+  font-size:0.7em;
+  line-height:1;
+  margin:0;
+}
+/* we can fix it */
+
+.life-top{
+  margin-bottom:24px;
+}
+
+.life-sub{
+  font-size:20px;
+  opacity:.7;
+}
+
+.life-days{
+  margin-top:12px;
+  font-size:clamp(72px,12vw,120px);
+  font-weight:900;
+  line-height:.9;
+  color:var(--text);
+}
+.minicard-row{
+  display:flex;
+  justify-content:left;
+  align-items:center;
+  border: 5px solid rgba(255,255,255,.45);
+  gap:16px;
+  backdrop-filter:blur(8px);
+  border-radius:22px;
+  padding:8px;
+  width: auto;
+  box-shadow: 0 2px 10px rgba(92,71,52,.04);
+}
+
+
+/* we can fix it */
+
+</style>
+</head>
+
+<body>
+<div class="widget-stage">
+  <div class="card" id="card">
+
+  <h1>A Day in the Life</h1>
+    <div class="life-top">
+
+      <div class="life-sub" id="startDateText">
+        since 29th May 2026,<span class="emphasis"> you have worked</span></div>
+
+<div class="life-days">
+  <span id="workDays">--</span> days
+</div>
+
+    </div>
+
+    <div class="averages">
+
+      <div class="minicard-row">
+        <div class="mini-card">
+        <div class="mini-number" id="avgShift">--
+      </div>
+      </div>
+      <div class="stat-label">average hours/workday</div>
+    </div>
+
+      <div class="minicard-row">
+        <div class="mini-card">
+        <div class="mini-number" id="avgWeek">--
+      </div>
+      </div>
+      <div class="stat-label">average hours/workweek</div>
+    </div>
+
+      <div class="minicard-row">
+        <div class="mini-card">
+        <div class="mini-number" id="avgUberDay">--
+      </div>
+      </div>
+      <div class="stat-label">average uber cost/day</div>
+    </div>
+
+      <div class="minicard-row">
+        <div class="mini-card">
+        <div class="mini-number" id="avgUberWeek">--
+      </div>
+      </div>
+      <div class="stat-label">average uber cost/week</div>
+    </div>
+
+    </div>
+    </div>
+    
+
+</div>
+
+<script>
+
+const CSV_URL =
+'https://docs.google.com/spreadsheets/d/e/2PACX-1vSp5DknacRo5BImdHw4NZdL2FUGBRh4hZvotLQkupglrML0JV7gg1MvfY46lHrQ5kW66Ur-WQZvQ3Y3/pub?gid=286953219&single=true&output=csv';
+
+function parseCSV(text){
+
+  const rows = [];
+  let row = [];
+  let value = '';
+  let insideQuotes = false;
+
+  for(let i=0;i<text.length;i++){
+
+    const char = text[i];
+    const next = text[i+1];
+
+    if(char === '"'){
+
+      if(insideQuotes && next === '"'){
+        value += '"';
+        i++;
+      }else{
+        insideQuotes = !insideQuotes;
+      }
+
+    }else if(char === ',' && !insideQuotes){
+
+      row.push(value);
+      value='';
+
+    }else if((char === '\n' || char === '\r') && !insideQuotes){
+
+      if(value !== '' || row.length){
+
+        row.push(value);
+        rows.push(row);
+
+        row=[];
+        value='';
+      }
+
+    }else{
+      value += char;
+    }
+  }
+
+  return rows;
+}
+
+function getValue(map,key){
+  return map[key]?.value || '';
+}
+
+function getExtra(map,key){
+  return map[key]?.extra || '';
+}
+
+async function loadData(){
+
+  try{
+
+    const response = await fetch(CSV_URL);
+    const csv = await response.text();
+
+    const rows = parseCSV(csv);
+
+    const map = {};
+
+    rows.forEach(r=>{
+      map[r[0]] = {
+        value:r[1] || '',
+        extra:r[2] || ''
+      };
+    });
+
+    document.getElementById('workDays').textContent =
+      getValue(map,'Total Work Days');
+
+    document.getElementById('avgShift').textContent =
+      getValue(map,'Av Hours per Workday');
+
+    document.getElementById('avgWeek').textContent =
+      getValue(map,'Av Hours per Week');
+
+    document.getElementById('avgUberDay').textContent =
+      getValue(map,'Av Uber per Workday');
+
+    document.getElementById('avgUberWeek').textContent =
+      getValue(map,'Av Uber per Week');
+
+
+    document.getElementById('loading').style.display='none';
+    document.getElementById('app').style.display='flex';
+
+  }catch(err){
+
+    console.error(err);
+
+    document.getElementById('loading').style.display='none';
+    document.getElementById('error').style.display='block';
+
+  }
+
+}
+
+function updatePeanut(percent){
+
+  const peanut = document.getElementById('peanut');
+
+  peanut.style.setProperty(
+    '--carpool',
+    Math.max(0, Math.min(100, percent))
+  );
+
+}
+function scaleCard(){
+
+  const card = document.getElementById('card');
+
+  const DESIGN_WIDTH = 464;
+  const DESIGN_HEIGHT = 600;
+
+  const availableWidth =
+    document.documentElement.clientWidth;
+
+  const availableHeight =
+    document.documentElement.clientHeight;
+
+  const scaleX =
+    availableWidth / DESIGN_WIDTH;
+
+  const scaleY =
+    availableHeight / DESIGN_HEIGHT;
+
+  const scale =
+    Math.min(scaleX, scaleY);
+
+  card.style.transform =
+    `scale(${Math.min(scale,1)})`;
+}
+window.addEventListener('resize', scaleCard);
+window.addEventListener('load', scaleCard);
+loadData();
+
+</script>
+
+</body>
+</html>
